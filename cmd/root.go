@@ -29,6 +29,7 @@ var (
 	address  string
 	username string
 	password string
+	output   string
 
 	rootCmd = &cobra.Command{
 		Use:   "bigip",
@@ -51,6 +52,7 @@ func init() {
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.bigip-cli.yaml)")
 	rootCmd.PersistentFlags().StringVarP(&address, "address", "a", "", "The address of the BigIP appliance you'd like to connect to. BIGIP_ADDRESS")
+	rootCmd.PersistentFlags().StringVarP(&output, "output", "o", "table", "BigIP output format (json,text)")
 	rootCmd.PersistentFlags().StringVarP(&username, "username", "u", "", "BigIP username. BIGIP_USERNAME")
 	rootCmd.PersistentFlags().StringVarP(&password, "password", "p", "", "BigIP password. BIGIP_PASSWORD")
 
