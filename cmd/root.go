@@ -50,19 +50,14 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.bigip-cli.yaml)")
-	rootCmd.PersistentFlags().StringVarP(&address, "address", "a", "", "The address of the BigIP appliance you'd like to connect to.")
-	rootCmd.PersistentFlags().StringVarP(&username, "username", "u", "", "BigIP username")
-	rootCmd.PersistentFlags().StringVarP(&password, "password", "p", "", "BigIP password")
+	rootCmd.PersistentFlags().StringVarP(&address, "address", "a", "", "The address of the BigIP appliance you'd like to connect to. BIGIP_ADDRESS")
+	rootCmd.PersistentFlags().StringVarP(&username, "username", "u", "", "BigIP username. BIGIP_USERNAME")
+	rootCmd.PersistentFlags().StringVarP(&password, "password", "p", "", "BigIP password. BIGIP_PASSWORD")
 
 	// Viper Bindings
 	viper.BindPFlag("address", rootCmd.PersistentFlags().Lookup("address"))
 	viper.BindPFlag("username", rootCmd.PersistentFlags().Lookup("username"))
 	viper.BindPFlag("password", rootCmd.PersistentFlags().Lookup("password"))
-
-	// Required Args
-	//rootCmd.MarkPersistentFlagRequired("address")
-	//rootCmd.MarkPersistentFlagRequired("username")
-	//rootCmd.MarkPersistentFlagRequired("password")
 
 	rootCmd.AddCommand(versionCmd)
 }
@@ -92,6 +87,9 @@ func initConfig() {
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
+	// This forces credential set.
+	// We don't set persistent flags as required because of this...
+	// https://github.com/spf13/viper/issues/397
 	if _, err := Client(); err != nil {
 		er("Set your creds.")
 	}
