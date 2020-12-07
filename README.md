@@ -14,7 +14,6 @@ $ export BIGIP_ADDRESS=1.1.1.1
 $ export BIGIP_USERNAME=foo
 $ export BIGIP_PASSWORD=bar
 $ bigip dg list
-INFO[0000] Initializing BigIP connection                
 /Common/ProxyPassvs_https
 /Common/aol
 /Common/images
