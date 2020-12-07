@@ -3,7 +3,6 @@ builds:
   # You can have multiple builds defined as a yaml list
   - # build1
     binary: bigip
-    dir: bigip
     main: ./main.go
 
     env:
