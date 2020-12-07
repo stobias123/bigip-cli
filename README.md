@@ -4,6 +4,15 @@ This is a golang library for interacting with the bigip CLI.
 
 Please submit issues and feature requests.
 
+## Installation
+Check out the releases page.
+
+If you're on osx run the below
+```shell
+brew tap foobar-software/homebrew-tap
+brew install bigip-cli
+```
+
 ## Usage:
 ```shell
   bigip [command]
