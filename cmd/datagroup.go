@@ -15,36 +15,17 @@
 package cmd
 
 import (
-	"fmt"
-
-	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
-var datagroupListCmd = &cobra.Command{
-	Use:   "list",
-	Short: "Operations related to datagroup",
-	Long:  ``,
-	Run:   getDataGroupList,
-}
-
-func getDataGroupList(cmd *cobra.Command, args []string) {
-	log.Debugf("[DEBUG] Retrieving DataGroups: %s")
-	client, err := Client()
-	if err != nil {
-		er("Problem in DataGroupList")
-	}
-
-	dgs, err := client.InternalDataGroups()
-	if err != nil {
-		er(err)
-	}
-
-	for _, datagroup := range dgs.DataGroups {
-		fmt.Println(datagroup.FullPath)
-	}
+// datagroupCmd represents the datagroup command
+var datagroupCmd = &cobra.Command{
+	Use:     "datagroup",
+	Aliases: []string{"dg"},
+	Short:   "Operations related to datagroup",
+	Long:    ``,
 }
 
 func init() {
-	datagroupCmd.AddCommand(datagroupListCmd)
+	rootCmd.AddCommand(datagroupCmd)
 }
