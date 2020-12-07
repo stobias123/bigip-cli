@@ -21,15 +21,16 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// getVirtualserversCmd represents the getVirtualservers command
-var getVirtualserversCmd = &cobra.Command{
-	Use:   "list",
-	Short: "List Virtualservers",
-	Run:   listVirtualServers,
+// listVirtualserversCmd represents the getVirtualservers command
+var listVirtualserversCmd = &cobra.Command{
+	Use:     "list",
+	Aliases: []string{"ls", "l"},
+	Short:   "List Virtualservers",
+	Run:     listVirtualServers,
 }
 
 func listVirtualServers(cmd *cobra.Command, args []string) {
-	log.Debugf("[DEBUG] Retrieving Virtual Servers...")
+	log.Debugf("[ListVirtualServer] Retrieving Virtual Servers...")
 	client, err := Client()
 	if err != nil {
 		log.Error("[ListVirtualServer] Problem Configuring Client.")
@@ -45,5 +46,5 @@ func listVirtualServers(cmd *cobra.Command, args []string) {
 }
 
 func init() {
-	virtualServersCmd.AddCommand(getVirtualserversCmd)
+	virtualServersCmd.AddCommand(listVirtualserversCmd)
 }

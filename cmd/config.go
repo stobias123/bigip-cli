@@ -26,7 +26,7 @@ func Client() (*bigip.BigIP, error) {
 		Password: fmt.Sprintf("%s", viper.Get("password")),
 	}
 	if c.Address != "" && c.Username != "" && c.Password != "" {
-		log.Infof("Initializing BigIP connection")
+		//log.Infof("Initializing BigIP connection")
 		var client *bigip.BigIP
 		var err error
 		if c.LoginReference != "" {

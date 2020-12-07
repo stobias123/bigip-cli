@@ -21,30 +21,48 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var datagroupListCmd = &cobra.Command{
-	Use:   "list",
-	Short: "Operations related to datagroup",
-	Long:  ``,
-	Run:   getDataGroupList,
-}
+var (
+	dataGroupName string
 
-func getDataGroupList(cmd *cobra.Command, args []string) {
-	log.Debugf("[DEBUG] Retrieving DataGroups: %s")
+	getDataGroupCmd = &cobra.Command{
+		Use: "get",
+		//Aliases: []string{"ls", "l"},
+		Short: "Get a specific Datagroup",
+		Long:  ``,
+		Run:   getDataGroup,
+	}
+)
+
+func getDataGroup(cmd *cobra.Command, args []string) {
+	log.Debugf("Retrieving DataGroup: %s", dataGroupName)
 	client, err := Client()
 	if err != nil {
-		er("Problem in DataGroupList")
+		er("Problem in getDataGroup")
 	}
-
-	dgs, err := client.InternalDataGroups()
+	dg, err := client.GetInternalDataGroup(dataGroupName)
 	if err != nil {
 		er(err)
 	}
 
-	for _, datagroup := range dgs.DataGroups {
-		fmt.Println(datagroup.FullPath)
+	if output == "json" {
+		dgJson, err := dg.MarshalJSON()
+		if err != nil {
+			er("[GetDataGroup] Problem w/ marshalJSON")
+		}
+		fmt.Printf("%s\n", dgJson)
+	} else {
+		fmt.Println(dg.FullPath)
+		for _, record := range dg.Records {
+			fmt.Printf("\t %s --> %s\n", record.Name, record.Data)
+		}
+
 	}
 }
 
 func init() {
-	datagroupCmd.AddCommand(datagroupListCmd)
+	// Flags - Maybe split this later if we get to big.
+	// Adding Commands
+	getDataGroupCmd.Flags().StringVar(&dataGroupName, "name", "", "DataGroup name")
+	cobra.MarkFlagRequired(getDataGroupCmd.Flags(), "name")
+	datagroupCmd.AddCommand(getDataGroupCmd)
 }
