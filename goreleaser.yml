@@ -4,7 +4,7 @@ builds:
   - # build1
     binary: bigip
     dir: bigip
-    main: ./bigip/main.go
+    main: ./main.go
 
     env:
       - CGO_ENABLED=0
