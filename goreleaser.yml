@@ -30,9 +30,7 @@ archives:
     darwin: macOS
 brews:
   - 
-    name: bigip
-    ids:
-      - homebrew
     tap:
-      owner: stobias123
-      name: bigip-cli
+      owner: foobar-software
+      name: homebrew-tap
+    folder: Formula
