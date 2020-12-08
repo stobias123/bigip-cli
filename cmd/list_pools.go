@@ -22,9 +22,10 @@ import (
 
 // listPoolsCmd represents the listPools command
 var listPoolsCmd = &cobra.Command{
-	Use:   "listPools",
-	Short: "Lists pools on the F5",
-	Run:   listPools,
+	Use:     "list",
+	Aliases: []string{"ls", "l"},
+	Short:   "Lists pools on the F5",
+	Run:     listPools,
 }
 
 func listPools(cmd *cobra.Command, args []string) {
